@@ -6,17 +6,82 @@
 
 package GUI;
 
+import MySql.Conexiones;
+import Objetos.Alumno;
 import java.awt.Color;
-
+import java.awt.Font;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JTable;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
+import sun.swing.table.DefaultTableCellHeaderRenderer;
 /**
  *
  * @author miriam
  */
+
+
 public class PanelVisualiza extends javax.swing.JPanel {
 
     /** Creates new form PanelVisualiza */
+    List <Alumno> datos = new ArrayList<>();
+    Conexiones conexion = new Conexiones();
+    
+    DefaultTableModel modelo = new DefaultTableModel(){ 
+        @Override
+        public boolean isCellEditable(int filas, int columnas)
+        {
+            if(columnas==1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+    };
+    
     public PanelVisualiza() {
         initComponents();
+        
+        
+            ((DefaultTableCellRenderer) tabla.getTableHeader().getDefaultRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
+        tabla.getTableHeader().setFont(new Font("Serif", Font.BOLD, 20));
+        tabla.getTableHeader().setOpaque(false);
+        tabla.getTableHeader().setBackground(Color.blue); //NO FUNCIONA
+        tabla.getTableHeader().setForeground(Color.BLACK);
+        tabla.setRowHeight(25);
+        
+        listallena();
+    }
+    public void listallena()
+    {   
+        modelo.setRowCount(0);
+        
+        modelo.setColumnIdentifiers(new Object[]{"Boleta", "Nombre", "Primer Apellido", "Segundo Apellido"});
+        
+        conexion.conectar(); //CONECTAR A LA BD
+        
+        conexion.muestra(); //OBTIENE TODOS LOS REGISTROS DE LA BD
+        
+        datos = conexion.getLista(); //TRAE DICHOS REGISTROS A LA CLASE ACTUAL
+        
+        conexion.desconectar(); //CIERRA CONEXION
+        
+        for(Alumno aux : datos)//FOREACH
+        {
+            //CREA LAS FILAS
+            modelo.addRow(new Object[]{String.valueOf(aux.getMatricula()),aux.getNombre(), aux.getPrimer_apellido(), aux.getSegundo_apellido()});
+        }
+       
+        tabla.setModel(modelo); //AÑADE EL MODELO AL JTABLE CREADO
+        
+        conexion.limpiaLista(); //LIMPIA LISTA DE LA CLASE Conexiones
+        datos.clear();          //LIMPIA LISTA DE LA CLASE ACTUAL
     }
 
     /** This method is called from within the constructor to
@@ -33,7 +98,7 @@ public class PanelVisualiza extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         rSTextFieldShade1 = new rscomponentshade.RSTextFieldShade();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tabla = new javax.swing.JTable();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setMaximumSize(new java.awt.Dimension(780, 600));
@@ -75,7 +140,8 @@ public class PanelVisualiza extends javax.swing.JPanel {
         rSTextFieldShade1.setPlaceholder("Buscar Alumno");
         rSTextFieldShade1.setPreferredSize(new java.awt.Dimension(450, 60));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tabla.setFont(new java.awt.Font("Serif", 0, 18)); // NOI18N
+        tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -83,10 +149,16 @@ public class PanelVisualiza extends javax.swing.JPanel {
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Boleta", "Nombre", "Primer Apellido", "Segundo Apellido"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        tabla.setFocusable(false);
+        tabla.setGridColor(new java.awt.Color(255, 255, 255));
+        tabla.setRowHeight(25);
+        tabla.setSelectionBackground(new java.awt.Color(1, 112, 250));
+        tabla.setShowVerticalLines(false);
+        tabla.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(tabla);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -95,13 +167,12 @@ public class PanelVisualiza extends javax.swing.JPanel {
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(rSTextFieldShade1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(295, 295, 295)))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 745, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(rSTextFieldShade1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(295, 295, 295))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING))
                 .addContainerGap(25, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -110,9 +181,9 @@ public class PanelVisualiza extends javax.swing.JPanel {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(rSTextFieldShade1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
                 .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(24, 24, 24))
         );
@@ -136,8 +207,8 @@ public class PanelVisualiza extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private rscomponentshade.RSTextFieldShade rSTextFieldShade1;
+    private javax.swing.JTable tabla;
     // End of variables declaration//GEN-END:variables
 
 }

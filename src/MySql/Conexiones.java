@@ -35,7 +35,7 @@ public class Conexiones {
         {
             try{
                 Class.forName("com.mysql.jdbc.Driver");
-                con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/gestionalumnos", "root", "root01");
+                con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/gestionalumnos", "root", "root");
                 System.out.println("CONECTADO");
             }catch(ClassNotFoundException | SQLException e)
             {
@@ -66,6 +66,10 @@ public class Conexiones {
                     pat = result.getString(3);
                     mat = result.getString(4);
                     listaAlumno.add(new Alumno(boleta,nombre,pat,mat));
+                }
+                for(Alumno aux : listaAlumno)
+                {
+                    System.out.println(aux);
                 }
                 
             }catch(SQLException e)
