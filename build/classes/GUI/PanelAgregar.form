@@ -148,6 +148,9 @@
           <Dimension value="[450, 60]"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtBoletaKeyTyped"/>
+      </Events>
     </Component>
     <Component class="rscomponentshade.RSTextFieldShade" name="txtNombre">
       <Properties>

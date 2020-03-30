@@ -5,6 +5,7 @@
  */
 package GUI;
 
+import com.sun.glass.events.KeyEvent;
 import java.awt.Color;
 
 /**
@@ -16,6 +17,7 @@ public class PanelAgregar extends javax.swing.JPanel {
     /**
      * Creates new form PanelAgregar
      */
+    char validar;
     public PanelAgregar() {
         initComponents();
         lblError.setVisible(false);
@@ -68,6 +70,11 @@ public class PanelAgregar extends javax.swing.JPanel {
         txtBoleta.setMinimumSize(new java.awt.Dimension(450, 60));
         txtBoleta.setPlaceholder("");
         txtBoleta.setPreferredSize(new java.awt.Dimension(450, 60));
+        txtBoleta.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtBoletaKeyTyped(evt);
+            }
+        });
 
         txtNombre.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
         txtNombre.setMaximumSize(new java.awt.Dimension(450, 60));
@@ -321,8 +328,17 @@ public class PanelAgregar extends javax.swing.JPanel {
     }//GEN-LAST:event_btnLimpiarMouseEntered
 
     private void btnLimpiarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLimpiarMouseExited
-        btnLimpiar.setBackground(new Color(0,160,255));
+        btnLimpiar.setBackground(new Color(1,112,250));
     }//GEN-LAST:event_btnLimpiarMouseExited
+
+    private void txtBoletaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBoletaKeyTyped
+        validar = evt.getKeyChar();
+        if(Character.isLetter(validar) || validar == KeyEvent.VK_SPACE)
+        {
+            getToolkit().beep();
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtBoletaKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
