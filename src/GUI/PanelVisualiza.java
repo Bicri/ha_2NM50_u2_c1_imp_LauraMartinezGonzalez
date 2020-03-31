@@ -30,11 +30,10 @@ public class PanelVisualiza extends javax.swing.JPanel {
     List <Alumno> datos = new ArrayList<>();
     Conexiones conexion = new Conexiones();
     
-    DefaultTableModel modelo = new DefaultTableModel(){ 
+    DefaultTableModel modelo = new DefaultTableModel(){
         @Override
-        public boolean isCellEditable(int filas, int columnas)
-        {
-            if(columnas==1)
+        public boolean isCellEditable(int filas, int columnas) {
+            if(columnas == 4)
             {
                 return true;
             }
@@ -43,13 +42,15 @@ public class PanelVisualiza extends javax.swing.JPanel {
                 return false;
             }
         }
+        
     };
+
     
     public PanelVisualiza() {
         initComponents();
         
         
-            ((DefaultTableCellRenderer) tabla.getTableHeader().getDefaultRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
+         ((DefaultTableCellRenderer) tabla.getTableHeader().getDefaultRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
         tabla.getTableHeader().setFont(new Font("Serif", Font.BOLD, 20));
         tabla.getTableHeader().setOpaque(false);
         tabla.getTableHeader().setBackground(Color.blue); //NO FUNCIONA
@@ -151,7 +152,15 @@ public class PanelVisualiza extends javax.swing.JPanel {
             new String [] {
                 "Boleta", "Nombre", "Primer Apellido", "Segundo Apellido"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tabla.setFocusable(false);
         tabla.setGridColor(new java.awt.Color(255, 255, 255));
         tabla.setRowHeight(25);
