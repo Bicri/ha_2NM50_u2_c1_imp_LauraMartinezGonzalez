@@ -26,9 +26,13 @@ import sun.swing.table.DefaultTableCellHeaderRenderer;
 
 public class PanelVisualiza extends javax.swing.JPanel {
 
-    /** Creates new form PanelVisualiza */
+    
+    
+    
     List <Alumno> datos = new ArrayList<>();
     Conexiones conexion = new Conexiones();
+    int id;
+    String idS = null;
     
     DefaultTableModel modelo = new DefaultTableModel(){
         @Override
@@ -84,6 +88,31 @@ public class PanelVisualiza extends javax.swing.JPanel {
         conexion.limpiaLista(); //LIMPIA LISTA DE LA CLASE Conexiones
         datos.clear();          //LIMPIA LISTA DE LA CLASE ACTUAL
     }
+    public void listallenaDinamica()
+    {   
+        modelo.setRowCount(0);
+        
+        modelo.setColumnIdentifiers(new Object[]{"Matricula", "Nombre", "Primer Apellido", "Segundo Apellido"}); //CREAR COLUMNAS
+        
+        conexion.conectar(); //CONECTAR A LA BD
+        
+        conexion.muestraDinamica(txtSearch.getText()); //OBTIENE TODOS LOS REGISTROS DE LA BD
+        
+        datos = conexion.getLista(); //TRAE DICHOS REGISTROS A LA CLASE ACTUAL
+        
+        conexion.desconectar(); //CIERRA CONEXION
+        
+        for(Alumno aux : datos)//FOREACH
+        {
+            //CREA LAS FILAS
+            modelo.addRow(new Object[]{String.valueOf(aux.getMatricula()),aux.getNombre(), aux.getPrimer_apellido(), aux.getSegundo_apellido()});
+        }
+       
+        tabla.setModel(modelo); //AÑADE EL MODELO AL JTABLE CREADO
+        
+        conexion.limpiaLista(); //LIMPIA LISTA DE LA CLASE Conexiones
+        datos.clear();          //LIMPIA LISTA DE LA CLASE ACTUAL
+    }
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -97,7 +126,7 @@ public class PanelVisualiza extends javax.swing.JPanel {
         btnEliminar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        rSTextFieldShade1 = new rscomponentshade.RSTextFieldShade();
+        txtSearch = new rscomponentshade.RSTextFieldShade();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabla = new javax.swing.JTable();
 
@@ -135,11 +164,19 @@ public class PanelVisualiza extends javax.swing.JPanel {
         jLabel1.setText("Visualizar Alumnos");
         jPanel2.add(jLabel1, java.awt.BorderLayout.CENTER);
 
-        rSTextFieldShade1.setFont(new java.awt.Font("Serif", 0, 24)); // NOI18N
-        rSTextFieldShade1.setMaximumSize(new java.awt.Dimension(450, 60));
-        rSTextFieldShade1.setMinimumSize(new java.awt.Dimension(450, 60));
-        rSTextFieldShade1.setPlaceholder("Buscar Alumno");
-        rSTextFieldShade1.setPreferredSize(new java.awt.Dimension(450, 60));
+        txtSearch.setFont(new java.awt.Font("Serif", 0, 24)); // NOI18N
+        txtSearch.setMaximumSize(new java.awt.Dimension(450, 60));
+        txtSearch.setMinimumSize(new java.awt.Dimension(450, 60));
+        txtSearch.setPlaceholder("Buscar Alumno");
+        txtSearch.setPreferredSize(new java.awt.Dimension(450, 60));
+        txtSearch.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtSearchKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtSearchKeyTyped(evt);
+            }
+        });
 
         tabla.setFont(new java.awt.Font("Serif", 0, 18)); // NOI18N
         tabla.setModel(new javax.swing.table.DefaultTableModel(
@@ -167,6 +204,11 @@ public class PanelVisualiza extends javax.swing.JPanel {
         tabla.setSelectionBackground(new java.awt.Color(1, 112, 250));
         tabla.setShowVerticalLines(false);
         tabla.getTableHeader().setReorderingAllowed(false);
+        tabla.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tabla);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -179,7 +221,7 @@ public class PanelVisualiza extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(rSTextFieldShade1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(295, 295, 295))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING))
                 .addContainerGap(25, Short.MAX_VALUE))
@@ -189,7 +231,7 @@ public class PanelVisualiza extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(rSTextFieldShade1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
@@ -207,8 +249,21 @@ public class PanelVisualiza extends javax.swing.JPanel {
     }//GEN-LAST:event_btnEliminarMouseExited
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void tablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaMouseClicked
+          id = tabla.rowAtPoint(evt.getPoint());
+          idS = String.valueOf(tabla.getValueAt(id, 0));
+    }//GEN-LAST:event_tablaMouseClicked
+
+    private void txtSearchKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyTyped
+        listallenaDinamica();
+    }//GEN-LAST:event_txtSearchKeyTyped
+
+    private void txtSearchKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyPressed
+
+    }//GEN-LAST:event_txtSearchKeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -216,8 +271,8 @@ public class PanelVisualiza extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private rscomponentshade.RSTextFieldShade rSTextFieldShade1;
     private javax.swing.JTable tabla;
+    private rscomponentshade.RSTextFieldShade txtSearch;
     // End of variables declaration//GEN-END:variables
 
 }

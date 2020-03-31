@@ -36,7 +36,7 @@
               <Group type="103" groupAlignment="1" max="-2" attributes="0">
                   <Component id="btnEliminar" min="-2" max="-2" attributes="0"/>
                   <Group type="102" attributes="0">
-                      <Component id="rSTextFieldShade1" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtSearch" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="295" max="-2" attributes="0"/>
                   </Group>
                   <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
@@ -50,7 +50,7 @@
           <Group type="102" alignment="0" attributes="0">
               <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="rSTextFieldShade1" min="-2" max="-2" attributes="0"/>
+              <Component id="txtSearch" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="319" max="-2" attributes="0"/>
               <EmptySpace pref="11" max="32767" attributes="0"/>
@@ -114,7 +114,7 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="rscomponentshade.RSTextFieldShade" name="rSTextFieldShade1">
+    <Component class="rscomponentshade.RSTextFieldShade" name="txtSearch">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Serif" size="24" style="0"/>
@@ -130,6 +130,10 @@
           <Dimension value="[450, 60]"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtSearchKeyPressed"/>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtSearchKeyTyped"/>
+      </Events>
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane1">
       <AuxValues>
@@ -164,6 +168,9 @@
               <TableHeader reorderingAllowed="false" resizingAllowed="true"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tablaMouseClicked"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

@@ -67,11 +67,6 @@ public class Conexiones {
                     mat = result.getString(4);
                     listaAlumno.add(new Alumno(boleta,nombre,pat,mat));
                 }
-                for(Alumno aux : listaAlumno)
-                {
-                    System.out.println(aux);
-                }
-                
             }catch(SQLException e)
             {
                 System.out.println("Error al mostrar" + e);
