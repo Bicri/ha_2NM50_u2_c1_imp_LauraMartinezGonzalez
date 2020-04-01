@@ -118,6 +118,11 @@ public class PanelVisualiza extends javax.swing.JPanel {
         conexion.limpiaLista(); //LIMPIA LISTA DE LA CLASE Conexiones
         datos.clear();          //LIMPIA LISTA DE LA CLASE ACTUAL
     }
+    
+    public void noSelec()
+    {
+        idS = null;
+    }
 
     /** This method is called from within the constructor to
      * initialize the form.

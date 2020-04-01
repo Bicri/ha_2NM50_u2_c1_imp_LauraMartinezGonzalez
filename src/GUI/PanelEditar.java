@@ -7,9 +7,15 @@ package GUI;
 
 
 import GUI.*;
+import GUI.Modales.Modal2;
+import MySql.Conexiones;
+import Objetos.Alumno;
 import com.sun.glass.events.KeyEvent;
 import java.awt.Color;
+import java.awt.Frame;
+import java.awt.Window;
 import javax.swing.BorderFactory;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -20,7 +26,10 @@ public class PanelEditar extends javax.swing.JPanel {
     /**
      * Creates new form PanelAgregar
      */
-    char valida; //Para evento keytyped
+    private char valida; //Para evento keytyped
+    private Alumno alumno = new Alumno();
+    private Conexiones conexion = new Conexiones();
+    
     public PanelEditar() {
         initComponents();
         lblError.setVisible(false);
@@ -457,21 +466,59 @@ public class PanelEditar extends javax.swing.JPanel {
         }
         else
         {
-            lblBoleta.setText("Boleta");
-            lblBoleta.setForeground(Color.BLACK);
-            lblNombre.setText("Nombre(s)");
-            lblNombre.setForeground(Color.BLACK);
-            lblPat.setText("Primer Apellido");
-            lblPat.setForeground(Color.BLACK);
-            lblError.setVisible(false);
-            txtBoleta.setPlaceholder("Boleta Actual");
-            txtBoleta2.setPlaceholder("Boleta Nueva");
+            conexion.conectar();
+            if(conexion.existencia(txtBoleta.getText()))
+            {
+               
+               if( (txtBoleta2.getText().equals(txtBoleta.getText())) || (!txtBoleta2.getText().equals(txtBoleta.getText()) && !conexion.existencia(txtBoleta2.getText())))
+               {
+                   alumno.setMatricula(Long.parseLong(txtBoleta2.getText()));
+                   alumno.setNombre(txtNombre.getText());
+                   alumno.setPrimer_apellido(txtPat.getText());
+                   alumno.setSegundo_apellido(txtMat.getText());
+                   conexion.actualiza(alumno, txtBoleta.getText());
+                   Window parentWindow = SwingUtilities.windowForComponent(this);
+                   Frame parentframe = null;
+                   if(parentWindow instanceof Frame)
+                    {
+                        parentframe = (Frame)parentWindow;
+                    }
+                    Modal2 m = new Modal2(parentframe,true,6);
+                    m.setVisible(true);
+                    
+               }
+               else
+               {
+                   Window parentWindow = SwingUtilities.windowForComponent(this);
+                   Frame parentframe = null;
+                   if(parentWindow instanceof Frame)
+                   {
+                       parentframe = (Frame)parentWindow;
+                   }
+                    Modal2 m = new Modal2(parentframe,true,5);
+                    m.setVisible(true);
+                    limpia();
+               }
+            }
+            else
+            {
+                Window parentWindow = SwingUtilities.windowForComponent(this);
+                Frame parentframe = null;
+                if(parentWindow instanceof Frame)
+                {
+                    parentframe = (Frame)parentWindow;
+                }
+                Modal2 m = new Modal2(parentframe,true,4);
+                m.setVisible(true);
+            }
+            conexion.desconectar();
         }
         
         
     }//GEN-LAST:event_btnAceptarActionPerformed
 
-    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+    public void limpia()
+    {
         lblBoleta.setText("Boleta");
         lblBoleta.setForeground(Color.BLACK);
         lblNombre.setText("Nombre(s)");
@@ -487,6 +534,9 @@ public class PanelEditar extends javax.swing.JPanel {
         txtMat.setText("");
         txtBoleta.setPlaceholder("Boleta Actual");
         txtBoleta2.setPlaceholder("Boleta Nueva");
+    }
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+        limpia();
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
     private void btnAceptarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAceptarMouseEntered

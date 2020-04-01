@@ -104,7 +104,7 @@ public class Conexiones {
                 st.setString(3, alumno.getPrimer_apellido());
                 st.setString(4, alumno.getSegundo_apellido());
                 st.execute();
-                System.out.println("INSERTADO");
+                
             }catch(SQLException e)
             {
                 System.out.println("Error al insertar\n "+ e);
@@ -117,7 +117,7 @@ public class Conexiones {
             {
                 st = con.prepareStatement("DELETE FROM alumnos WHERE boleta = '"+matricula+"'");
                 st.executeUpdate();
-                System.out.println("ELIMINADO");
+                
             }catch(SQLException e)
             {
                 System.out.println("ERROR AL ELIMINAR\n "+ e);
@@ -130,7 +130,7 @@ public class Conexiones {
             {
                 st = con.prepareStatement("UPDATE alumnos SET boleta = '"+alumno.getMatricula()+"', nombre = '"+alumno.getNombre()+"', PrimerAp = '"+alumno.getPrimer_apellido()+"', SegundoAp = '"+alumno.getSegundo_apellido()+"' WHERE boleta='"+id+"'");
                 st.executeUpdate();
-                System.out.println("ACTUALIZADO");
+                
             }catch(SQLException e)
             {
                 System.out.println("Error "+e);

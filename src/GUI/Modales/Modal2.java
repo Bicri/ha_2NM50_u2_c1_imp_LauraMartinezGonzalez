@@ -35,13 +35,28 @@ public class Modal2 extends javax.swing.JDialog {
         }
         if(flag == 2)
         {
-            lblTexto.setText("REGISTRO EXITOSO");
+            lblTexto.setText("Registro Exitoso");
             lblaux.setVisible(false);
         }
         if(flag == 3)
         {
             lblTexto.setText("Error");
             lblaux.setText("Matricula ya registrada previamente");
+        }
+        if(flag == 4)
+        {
+            lblTexto.setText("Error al Editar");
+            lblaux.setText("No se puede actualizar una alumno que no existe");
+        }
+        if(flag == 5)
+        {
+            lblTexto.setText("Error al Editar");
+            lblaux.setText("La boleta nueva ya está registrada");
+        }
+        if(flag == 6)
+        {
+            lblTexto.setText("Edicion Exitosa");
+            lblaux.setVisible(false);
         }
     }
 

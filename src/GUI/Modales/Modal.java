@@ -7,6 +7,7 @@ package GUI.Modales;
 
 import MySql.Conexiones;
 import Objetos.Alumno;
+import java.awt.Color;
 import javax.swing.JFrame;
 
 /**
@@ -84,6 +85,14 @@ public class Modal extends javax.swing.JDialog {
         btnAceptar.setMaximumSize(new java.awt.Dimension(250, 60));
         btnAceptar.setMinimumSize(new java.awt.Dimension(250, 60));
         btnAceptar.setPreferredSize(new java.awt.Dimension(200, 40));
+        btnAceptar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnAceptarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnAceptarMouseExited(evt);
+            }
+        });
         btnAceptar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAceptarActionPerformed(evt);
@@ -98,6 +107,14 @@ public class Modal extends javax.swing.JDialog {
         btnCancelar.setMaximumSize(new java.awt.Dimension(250, 60));
         btnCancelar.setMinimumSize(new java.awt.Dimension(250, 60));
         btnCancelar.setPreferredSize(new java.awt.Dimension(200, 40));
+        btnCancelar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnCancelarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnCancelarMouseExited(evt);
+            }
+        });
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelarActionPerformed(evt);
@@ -146,6 +163,26 @@ public class Modal extends javax.swing.JDialog {
         conexion.desconectar();
         dispose();
     }//GEN-LAST:event_btnAceptarActionPerformed
+
+    private void btnAceptarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAceptarMouseEntered
+        // TODO add your handling code here:
+        btnAceptar.setBackground(new Color(0,160,255));
+    }//GEN-LAST:event_btnAceptarMouseEntered
+
+    private void btnAceptarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAceptarMouseExited
+        // TODO add your handling code here:
+        btnAceptar.setBackground(new Color(1,112,250));
+    }//GEN-LAST:event_btnAceptarMouseExited
+
+    private void btnCancelarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMouseEntered
+        // TODO add your handling code here:
+        btnCancelar.setBackground(new Color(0,160,255));
+    }//GEN-LAST:event_btnCancelarMouseEntered
+
+    private void btnCancelarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMouseExited
+        // TODO add your handling code here:
+        btnCancelar.setBackground(new Color(1,112,250));
+    }//GEN-LAST:event_btnCancelarMouseExited
 
     /**
      * @param args the command line arguments

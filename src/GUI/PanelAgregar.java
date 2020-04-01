@@ -240,7 +240,7 @@ public class PanelAgregar extends javax.swing.JPanel {
             {
                 lblBoleta.setText("Boleta *");
                 lblBoleta.setForeground(Color.red);
-                lblNombre.setText("Nombre *");
+                lblNombre.setText("Nombre(s) *");
                 lblNombre.setForeground(Color.red);
                 lblPat.setText("Primer Apellido *");
                 lblPat.setForeground(Color.red);
@@ -249,25 +249,25 @@ public class PanelAgregar extends javax.swing.JPanel {
             {
                 lblBoleta.setText("Boleta *");
                 lblBoleta.setForeground(Color.red);
-                lblNombre.setText("Nombre");
+                lblNombre.setText("Nombr(s)");
                 lblNombre.setForeground(Color.BLACK);
-                lblPat.setText("Primer Nombre");
+                lblPat.setText("Primer Apellido");
                 lblPat.setForeground(Color.BLACK);
             }
             else if(txtBoleta.getText().isEmpty() && txtNombre.getText().isEmpty() && txtPat.getText() != " ")
             {
                 lblBoleta.setText("Boleta *");
                 lblBoleta.setForeground(Color.red);
-                lblNombre.setText("Nombre *");
+                lblNombre.setText("Nombre(s) *");
                 lblNombre.setForeground(Color.red);
-                lblPat.setText("Primer Nombre");
+                lblPat.setText("Primer Apellido");
                 lblPat.setForeground(Color.BLACK);
             }
             else if(txtBoleta.getText() != " " && txtNombre.getText().isEmpty() && txtPat.getText().isEmpty())
             {
                 lblBoleta.setText("Boleta");
                 lblBoleta.setForeground(Color.BLACK);
-                lblNombre.setText("Nombre *");
+                lblNombre.setText("Nombre(s) *");
                 lblNombre.setForeground(Color.red);
                 lblPat.setText("Primer Apellido *");
                 lblPat.setForeground(Color.red);
@@ -276,7 +276,7 @@ public class PanelAgregar extends javax.swing.JPanel {
             {
                 lblBoleta.setText("Boleta");
                 lblBoleta.setForeground(Color.BLACK);
-                lblNombre.setText("Nombre");
+                lblNombre.setText("Nombre(s)");
                 lblNombre.setForeground(Color.BLACK);
                 lblPat.setText("Primer Apellido *");
                 lblPat.setForeground(Color.red);
@@ -285,7 +285,7 @@ public class PanelAgregar extends javax.swing.JPanel {
             {
                 lblBoleta.setText("Boleta");
                 lblBoleta.setForeground(Color.BLACK);
-                lblNombre.setText("Nombre *");
+                lblNombre.setText("Nombre(s) *");
                 lblNombre.setForeground(Color.red);
                 lblPat.setText("Primer Apellido");
                 lblPat.setForeground(Color.BLACK);
@@ -324,18 +324,7 @@ public class PanelAgregar extends javax.swing.JPanel {
                 }
                 Modal2 m = new Modal2(parentframe,true,2);
                 m.setVisible(true);
-                lblBoleta.setText("Boleta");
-                lblBoleta.setForeground(Color.BLACK);
-                lblNombre.setText("Nombre");
-                lblNombre.setForeground(Color.BLACK);
-                lblPat.setText("Primer Apellido");
-                lblPat.setForeground(Color.BLACK);
-                lblError.setVisible(false);
-
-                txtBoleta.setText("");
-                txtNombre.setText("");
-                txtPat.setText("");
-                txtMat.setText("");
+                limpia();
             }
             conexion.desconectar();
             
@@ -343,11 +332,12 @@ public class PanelAgregar extends javax.swing.JPanel {
         
         
     }//GEN-LAST:event_btnAceptarActionPerformed
-
-    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+    
+    public void limpia()
+    {
         lblBoleta.setText("Boleta");
         lblBoleta.setForeground(Color.BLACK);
-        lblNombre.setText("Nombre");
+        lblNombre.setText("Nombre(s)");
         lblNombre.setForeground(Color.BLACK);
         lblPat.setText("Primer Apellido");
         lblPat.setForeground(Color.BLACK);
@@ -357,6 +347,9 @@ public class PanelAgregar extends javax.swing.JPanel {
         txtNombre.setText("");
         txtPat.setText("");
         txtMat.setText("");
+    }
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+        limpia();
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
     private void btnAceptarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAceptarMouseEntered

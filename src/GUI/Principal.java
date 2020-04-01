@@ -144,6 +144,7 @@ public class Principal extends javax.swing.JFrame implements ActionListener{
        Contenedor.add(visualiza);
        Contenedor.validate();
        visualiza.listallena();
+       visualiza.noSelec();
     }//GEN-LAST:event_btnVisualizarActionPerformed
 
     private void btnVisualizarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVisualizarMouseEntered
@@ -203,6 +204,8 @@ public class Principal extends javax.swing.JFrame implements ActionListener{
         
         Contenedor.add(agregar);
         Contenedor.validate();
+        
+        agregar.limpia();
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
