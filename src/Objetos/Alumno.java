@@ -4,7 +4,7 @@ package Objetos;
 
 public class Alumno {
     
-    private long  matricula;
+    private int  matricula;
     private String nombre, primer_apellido, segundo_apellido;
     
     public Alumno()
@@ -12,7 +12,7 @@ public class Alumno {
         
     }
     
-    public Alumno(long matricula, String nombre, String primer_apellido, String segundo_apellido)
+    public Alumno(int matricula, String nombre, String primer_apellido, String segundo_apellido)
     {
         this.matricula = matricula;
         this.nombre = nombre;
@@ -20,11 +20,11 @@ public class Alumno {
         this.segundo_apellido = segundo_apellido;
     }
 
-    public long getMatricula() {
+    public int getMatricula() {
         return matricula;
     }
 
-    public void setMatricula(long matricula) {
+    public void setMatricula(int matricula) {
         this.matricula = matricula;
     }
 

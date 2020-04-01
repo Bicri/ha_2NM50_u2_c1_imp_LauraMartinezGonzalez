@@ -15,6 +15,7 @@ import java.awt.Color;
 import java.awt.Frame;
 import java.awt.Window;
 import javax.swing.BorderFactory;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 /**
@@ -487,21 +488,28 @@ public class PanelEditar extends javax.swing.JPanel {
                
                if( (txtBoleta2.getText().equals(txtBoleta.getText())) || (!txtBoleta2.getText().equals(txtBoleta.getText()) && !conexion.existencia(txtBoleta2.getText())))
                {
-                   alumno.setMatricula(Long.parseLong(txtBoleta2.getText()));
-                   alumno.setNombre(txtNombre.getText());
-                   alumno.setPrimer_apellido(txtPat.getText());
-                   alumno.setSegundo_apellido(txtMat.getText());
-                   conexion.actualiza(alumno, txtBoleta.getText());
-                   Window parentWindow = SwingUtilities.windowForComponent(this);
-                   Frame parentframe = null;
-                   if(parentWindow instanceof Frame)
-                    {
-                        parentframe = (Frame)parentWindow;
-                    }
-                    Modal2 m = new Modal2(parentframe,true,6);
-                    m.setVisible(true);
-                    limpia();
-                    
+                   if(Long.parseLong(txtBoleta2.getText()) > 2147483647)
+                   {
+                       JOptionPane.showMessageDialog(null, "Error com.mysql.jdbc.MysqlDataTruncation: Data truncation: Out of range value for column 'boleta' at row 1");
+                   }
+                   else
+                   {
+                        alumno.setMatricula(Integer.parseInt(txtBoleta2.getText()));
+                        alumno.setNombre(txtNombre.getText());
+                        alumno.setPrimer_apellido(txtPat.getText());
+                        alumno.setSegundo_apellido(txtMat.getText());
+                        conexion.actualiza(alumno, txtBoleta.getText());
+                        Window parentWindow = SwingUtilities.windowForComponent(this);
+                        Frame parentframe = null;
+                        if(parentWindow instanceof Frame)
+                         {
+                             parentframe = (Frame)parentWindow;
+                         }
+                         Modal2 m = new Modal2(parentframe,true,6);
+                         m.setVisible(true);
+                         limpia();
+                   }
+ 
                }
                else
                {
@@ -578,11 +586,21 @@ public class PanelEditar extends javax.swing.JPanel {
             getToolkit().beep();
             evt.consume();
         }
+        else if(txtBoleta.getText().length() == 10)
+        {
+            getToolkit().beep();
+            evt.consume();
+        }
     }//GEN-LAST:event_txtBoletaKeyTyped
 
     private void txtBoleta2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBoleta2KeyTyped
         valida = evt.getKeyChar();
         if(Character.isLetter(valida) || valida == KeyEvent.VK_SPACE)
+        {
+            getToolkit().beep();
+            evt.consume();
+        }
+        else if(txtBoleta2.getText().length() == 10)
         {
             getToolkit().beep();
             evt.consume();
@@ -609,6 +627,11 @@ public class PanelEditar extends javax.swing.JPanel {
             getToolkit().beep();
             evt.consume();
         }
+        else if(txtNombre.getText().length() == 40)
+        {
+            getToolkit().beep();
+            evt.consume();
+        }
     }//GEN-LAST:event_txtNombreKeyTyped
 
     private void txtPatKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPatKeyTyped
@@ -619,12 +642,22 @@ public class PanelEditar extends javax.swing.JPanel {
             getToolkit().beep();
             evt.consume();
         }
+        else if(txtPat.getText().length() == 30)
+        {
+            getToolkit().beep();
+            evt.consume();
+        }
     }//GEN-LAST:event_txtPatKeyTyped
 
     private void txtMatKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMatKeyTyped
         // TODO add your handling code here:
         valida = evt.getKeyChar();
         if(Character.isDigit(valida))
+        {
+            getToolkit().beep();
+            evt.consume();
+        }
+        else if(txtMat.getText().length() == 30)
         {
             getToolkit().beep();
             evt.consume();

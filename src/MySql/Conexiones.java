@@ -1,9 +1,10 @@
 
 package MySql;
 
-
+import GUI.PanelAgregar;
 import Objetos.Alumno;
 import com.mysql.jdbc.Connection;
+import java.awt.Panel;
 import java.util.List;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -11,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 public class Conexiones {
     
@@ -23,6 +25,8 @@ public class Conexiones {
         private String nombre, pat, mat;
 
         private boolean respuesta;
+        
+        
         
         public List <Alumno> getLista()
         {
@@ -37,7 +41,7 @@ public class Conexiones {
         {
             try{
                 Class.forName("com.mysql.jdbc.Driver");
-                con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/gestionalumnos", "root", "root01");
+                con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/gestionalumnos", "root", "root");
                 
             }catch(ClassNotFoundException | SQLException e)
             {
@@ -94,7 +98,7 @@ public class Conexiones {
             }
         }
         
-        public void inserta(Alumno alumno)
+        public boolean inserta(Alumno alumno)
         {
             try
             {
@@ -103,12 +107,15 @@ public class Conexiones {
                 st.setString(2, alumno.getNombre());
                 st.setString(3, alumno.getPrimer_apellido());
                 st.setString(4, alumno.getSegundo_apellido());
-                st.execute();
-                
+                respuesta = st.execute();
             }catch(SQLException e)
             {
+                
                 System.out.println("Error al insertar\n "+ e);
+                JOptionPane.showMessageDialog(null, "PROBABLE ERROR DE LONGITUD EN BOLETA\n"+e);
             }
+            
+            return respuesta;
         }
         
         public void elimina(String matricula)
@@ -124,17 +131,20 @@ public class Conexiones {
             }
         }
         
-        public void actualiza(Alumno alumno, String id)
+        public boolean actualiza(Alumno alumno, String id)
         {
             try
             {
                 st = con.prepareStatement("UPDATE alumnos SET boleta = '"+alumno.getMatricula()+"', nombre = '"+alumno.getNombre()+"', PrimerAp = '"+alumno.getPrimer_apellido()+"', SegundoAp = '"+alumno.getSegundo_apellido()+"' WHERE boleta='"+id+"'");
                 st.executeUpdate();
-                
+                respuesta = true;
             }catch(SQLException e)
             {
+                respuesta = false;
                 System.out.println("Error "+e);
+                JOptionPane.showMessageDialog(null, "PROBABLE ERROR DE LONGITUD EN BOLETA\n"+e);
             }
+            return respuesta;
         }
         
         public boolean existencia(String boleta)

@@ -12,6 +12,7 @@ import com.sun.glass.events.KeyEvent;
 import java.awt.Color;
 import java.awt.Frame;
 import java.awt.Window;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 /**
@@ -308,46 +309,53 @@ public class PanelAgregar extends javax.swing.JPanel {
         }
         else
         {
-
-            
-            alumno.setMatricula(Long.parseLong(txtBoleta.getText()));
-            alumno.setNombre(txtNombre.getText());
-            alumno.setPrimer_apellido(txtPat.getText());
-            alumno.setSegundo_apellido(txtMat.getText());
-            conexion.conectar();
-            if(conexion.existencia(txtBoleta.getText()))
-            {
-                //EXISTE REGISTRO
-                Window parentWindow = SwingUtilities.windowForComponent(this);
-                Frame parentframe = null;
-                if(parentWindow instanceof Frame)
+           if(Long.parseLong(txtBoleta.getText()) > 2147483647)
+           {
+               JOptionPane.showMessageDialog(null, "Error com.mysql.jdbc.MysqlDataTruncation: Data truncation: Out of range value for column 'boleta' at row 1");
+           }
+           else
+           {
+                alumno.setMatricula(Integer.parseInt(txtBoleta.getText()));
+                alumno.setNombre(txtNombre.getText());
+                alumno.setPrimer_apellido(txtPat.getText());
+                alumno.setSegundo_apellido(txtMat.getText());
+                conexion.conectar();
+                if(conexion.existencia(txtBoleta.getText()))
                 {
-                    parentframe = (Frame)parentWindow;
+                    //EXISTE REGISTRO
+                    Window parentWindow = SwingUtilities.windowForComponent(this);
+                    Frame parentframe = null;
+                    if(parentWindow instanceof Frame)
+                    {
+                        parentframe = (Frame)parentWindow;
+                    }
+                    Modal2 m = new Modal2(parentframe,true,3);
+                    m.setVisible(true);
                 }
-                Modal2 m = new Modal2(parentframe,true,3);
-                m.setVisible(true);
-            }
-            else
-            {
-                //INSERTA
-                conexion.inserta(alumno);
-                Window parentWindow = SwingUtilities.windowForComponent(this);
-                Frame parentframe = null;
-                if(parentWindow instanceof Frame)
+                else
                 {
-                    parentframe = (Frame)parentWindow;
+                    //INSERTA
+                    if(conexion.inserta(alumno));
+                    {
+                        insertado();
+                    }
                 }
-                Modal2 m = new Modal2(parentframe,true,2);
-                m.setVisible(true);
-                limpia();
+                conexion.desconectar();
             }
-            conexion.desconectar();
-            
-        }
-        
-        
+        } 
     }//GEN-LAST:event_btnAceptarActionPerformed
-    
+    public void insertado()
+    {
+        Window parentWindow = SwingUtilities.windowForComponent(this);
+        Frame parentframe = null;
+        if(parentWindow instanceof Frame)
+        {
+            parentframe = (Frame)parentWindow;
+        }
+        Modal2 m = new Modal2(parentframe,true,2);
+        m.setVisible(true);
+        limpia();  
+    }
     public void limpia()
     {
         lblBoleta.setText("Boleta");
@@ -390,12 +398,22 @@ public class PanelAgregar extends javax.swing.JPanel {
             getToolkit().beep();
             evt.consume();
         }
+        else if(txtBoleta.getText().length() == 10)
+        {
+            getToolkit().beep();
+            evt.consume();
+        }
     }//GEN-LAST:event_txtBoletaKeyTyped
 
     private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
         // TODO add your handling code here:
         validar = evt.getKeyChar();
         if(Character.isDigit(validar))
+        {
+            getToolkit().beep();
+            evt.consume();
+        }
+        else if(txtNombre.getText().length() == 40)
         {
             getToolkit().beep();
             evt.consume();
@@ -410,12 +428,22 @@ public class PanelAgregar extends javax.swing.JPanel {
             getToolkit().beep();
             evt.consume();
         }
+        else if(txtPat.getText().length() == 30)
+        {
+            getToolkit().beep();
+            evt.consume();
+        }
     }//GEN-LAST:event_txtPatKeyTyped
 
     private void txtMatKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMatKeyTyped
         // TODO add your handling code here:
         validar = evt.getKeyChar();
         if(Character.isDigit(validar))
+        {
+            getToolkit().beep();
+            evt.consume();
+        }
+        else if(txtMat.getText().length() == 30)
         {
             getToolkit().beep();
             evt.consume();

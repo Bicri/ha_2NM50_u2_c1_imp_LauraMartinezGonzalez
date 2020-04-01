@@ -295,7 +295,7 @@ public class PanelVisualiza extends javax.swing.JPanel {
           id = tabla.rowAtPoint(evt.getPoint());
           
           idS = String.valueOf(tabla.getValueAt(id, 0));
-          alumno.setMatricula(Long.parseLong((String) tabla.getValueAt(id, 0)));
+          alumno.setMatricula(Integer.parseInt((String) tabla.getValueAt(id, 0)));
           alumno.setNombre(String.valueOf(tabla.getValueAt(id, 1)));
           alumno.setPrimer_apellido(String.valueOf(tabla.getValueAt(id, 2)));
           alumno.setSegundo_apellido(String.valueOf(tabla.getValueAt(id, 3)));
