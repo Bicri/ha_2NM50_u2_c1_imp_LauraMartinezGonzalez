@@ -6,14 +6,19 @@
 
 package GUI;
 
+import GUI.Modales.Modal;
+import GUI.Modales.Modal2;
 import MySql.Conexiones;
 import Objetos.Alumno;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Frame;
+import java.awt.Window;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
@@ -28,7 +33,7 @@ public class PanelVisualiza extends javax.swing.JPanel {
 
     
     
-    
+    Alumno alumno = new Alumno();
     List <Alumno> datos = new ArrayList<>();
     Conexiones conexion = new Conexiones();
     int id;
@@ -249,12 +254,46 @@ public class PanelVisualiza extends javax.swing.JPanel {
     }//GEN-LAST:event_btnEliminarMouseExited
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        
+        if(idS != null)
+        {
+           
+           Window parentWindow = SwingUtilities.windowForComponent(this);
+           Frame parentframe = null;
+           if(parentWindow instanceof Frame)
+           {
+               parentframe = (Frame)parentWindow;
+           }
+           Modal m = new Modal(parentframe,true,alumno,2);
+           m.setVisible(true);
+           if(m.getRespuesta())
+           {
+               listallena();
+               idS = null;
+           }
+           
+        }
+        else
+        {
+           Window parentWindow = SwingUtilities.windowForComponent(this);
+           Frame parentframe = null;
+           if(parentWindow instanceof Frame)
+           {
+               parentframe = (Frame)parentWindow;
+           }
+           Modal2 m = new Modal2(parentframe,true,1);
+           m.setVisible(true);
+           
+        }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void tablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaMouseClicked
           id = tabla.rowAtPoint(evt.getPoint());
+          
           idS = String.valueOf(tabla.getValueAt(id, 0));
+          alumno.setMatricula(Long.parseLong((String) tabla.getValueAt(id, 0)));
+          alumno.setNombre(String.valueOf(tabla.getValueAt(id, 1)));
+          alumno.setPrimer_apellido(String.valueOf(tabla.getValueAt(id, 2)));
+          alumno.setSegundo_apellido(String.valueOf(tabla.getValueAt(id, 3)));
     }//GEN-LAST:event_tablaMouseClicked
 
     private void txtSearchKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyTyped

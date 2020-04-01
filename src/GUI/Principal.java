@@ -18,11 +18,11 @@ public class Principal extends javax.swing.JFrame implements ActionListener{
     /**
      * Creates new form Principal
      */
-    PanelVisualiza visualiza = new PanelVisualiza();
-    PanelAgregar agregar = new PanelAgregar();
-    PanelEditar editar = new PanelEditar();
+    private PanelVisualiza visualiza = new PanelVisualiza();
+    private PanelAgregar agregar = new PanelAgregar();
+    private PanelEditar editar = new PanelEditar();
     
-    int flagAgregar = 0, flagVisualizar = 1, flagEditar = 0; 
+    private int flagAgregar = 0, flagVisualizar = 1, flagEditar = 0; 
     
     public Principal() {
         initComponents();
@@ -143,6 +143,7 @@ public class Principal extends javax.swing.JFrame implements ActionListener{
        editar.setVisible(false);
        Contenedor.add(visualiza);
        Contenedor.validate();
+       visualiza.listallena();
     }//GEN-LAST:event_btnVisualizarActionPerformed
 
     private void btnVisualizarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVisualizarMouseEntered

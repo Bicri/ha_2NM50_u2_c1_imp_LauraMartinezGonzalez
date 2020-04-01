@@ -14,13 +14,15 @@ import java.util.ArrayList;
 
 public class Conexiones {
     
-        Connection con;
-        PreparedStatement st = null;
-        ResultSet result = null;
+        private Connection con;
+        private PreparedStatement st = null;
+        private ResultSet result = null;
         
-        List <Alumno> listaAlumno = new ArrayList<>();
-        int boleta;  String nombre, pat, mat;
+        private List <Alumno> listaAlumno = new ArrayList<>();
+        private int boleta;  
+        private String nombre, pat, mat;
 
+        private boolean respuesta;
         
         public List <Alumno> getLista()
         {
@@ -36,7 +38,7 @@ public class Conexiones {
             try{
                 Class.forName("com.mysql.jdbc.Driver");
                 con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/gestionalumnos", "root", "root");
-                System.out.println("CONECTADO");
+                
             }catch(ClassNotFoundException | SQLException e)
             {
                 System.out.println("Error al conectar \n"+e);
@@ -47,7 +49,6 @@ public class Conexiones {
         {
             try{
                 con.close();
-                System.out.println("DESCONECTADO");
             }catch(SQLException ex)
             {
                 System.out.println("ERROR AL DESCONECTAR "+ex);
@@ -134,6 +135,21 @@ public class Conexiones {
             {
                 System.out.println("Error "+e);
             }
+        }
+        
+        public boolean existencia(String boleta)
+        {
+            try
+            {
+                st = con.prepareStatement("select boleta from alumnos where boleta = '"+boleta+"'");
+                result = st.executeQuery();
+                respuesta =  result.next();
+            }catch(SQLException e)
+            {
+                System.out.println("Error de existencia "+e);
+            }
+            
+            return respuesta;
         }
 }
 
