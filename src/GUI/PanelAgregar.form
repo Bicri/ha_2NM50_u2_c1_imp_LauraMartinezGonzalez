@@ -131,6 +131,9 @@
           <Dimension value="[450, 60]"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtMatKeyTyped"/>
+      </Events>
     </Component>
     <Component class="rscomponentshade.RSTextFieldShade" name="txtBoleta">
       <Properties>
@@ -168,6 +171,9 @@
           <Dimension value="[450, 60]"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtNombreKeyTyped"/>
+      </Events>
     </Component>
     <Component class="rscomponentshade.RSTextFieldShade" name="txtPat">
       <Properties>
@@ -185,6 +191,9 @@
           <Dimension value="[450, 60]"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtPatKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="lblBoleta">
       <Properties>

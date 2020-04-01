@@ -80,6 +80,11 @@ public class PanelEditar extends javax.swing.JPanel {
         txtMat.setMinimumSize(new java.awt.Dimension(450, 60));
         txtMat.setPlaceholder("");
         txtMat.setPreferredSize(new java.awt.Dimension(450, 60));
+        txtMat.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtMatKeyTyped(evt);
+            }
+        });
 
         txtBoleta.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
         txtBoleta.setMaximumSize(new java.awt.Dimension(450, 60));
@@ -105,12 +110,22 @@ public class PanelEditar extends javax.swing.JPanel {
         txtNombre.setMinimumSize(new java.awt.Dimension(450, 60));
         txtNombre.setPlaceholder("");
         txtNombre.setPreferredSize(new java.awt.Dimension(450, 60));
+        txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombreKeyTyped(evt);
+            }
+        });
 
         txtPat.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
         txtPat.setMaximumSize(new java.awt.Dimension(450, 60));
         txtPat.setMinimumSize(new java.awt.Dimension(450, 60));
         txtPat.setPlaceholder("");
         txtPat.setPreferredSize(new java.awt.Dimension(450, 60));
+        txtPat.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtPatKeyTyped(evt);
+            }
+        });
 
         lblBoleta.setFont(new java.awt.Font("Serif", 0, 36)); // NOI18N
         lblBoleta.setText("Boleta");
@@ -485,6 +500,7 @@ public class PanelEditar extends javax.swing.JPanel {
                     }
                     Modal2 m = new Modal2(parentframe,true,6);
                     m.setVisible(true);
+                    limpia();
                     
                }
                else
@@ -584,6 +600,36 @@ public class PanelEditar extends javax.swing.JPanel {
     private void txtBoleta2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtBoleta2MouseClicked
         txtBoleta2.setPlaceholder("Boleta Nueva");
     }//GEN-LAST:event_txtBoleta2MouseClicked
+
+    private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
+        // TODO add your handling code here:
+        valida = evt.getKeyChar();
+        if(Character.isDigit(valida))
+        {
+            getToolkit().beep();
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtNombreKeyTyped
+
+    private void txtPatKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPatKeyTyped
+        // TODO add your handling code here:
+        valida = evt.getKeyChar();
+        if(Character.isDigit(valida))
+        {
+            getToolkit().beep();
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtPatKeyTyped
+
+    private void txtMatKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMatKeyTyped
+        // TODO add your handling code here:
+        valida = evt.getKeyChar();
+        if(Character.isDigit(valida))
+        {
+            getToolkit().beep();
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtMatKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
