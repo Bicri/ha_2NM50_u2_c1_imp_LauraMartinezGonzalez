@@ -521,7 +521,6 @@ public class PanelEditar extends javax.swing.JPanel {
                    }
                     Modal2 m = new Modal2(parentframe,true,5);
                     m.setVisible(true);
-                    limpia();
                }
             }
             else

@@ -1,12 +1,12 @@
 
 
-create database GestionAlumnos;
+create database gestionalumnos;
 
-use  GestionAlumnos;
+use  gestionalumnos;
 
 create table alumnos
 (
-	boleta int unique,
+    boleta int unique,
     nombre varchar(50),
     PrimerAp varchar(50),
     SegundoAp varchar(50)
