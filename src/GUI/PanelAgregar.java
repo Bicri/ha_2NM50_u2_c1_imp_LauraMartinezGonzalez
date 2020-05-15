@@ -317,8 +317,8 @@ public class PanelAgregar extends javax.swing.JPanel {
            {
                 alumno.setMatricula(Integer.parseInt(txtBoleta.getText()));
                 alumno.setNombre(txtNombre.getText());
-                alumno.setPrimer_apellido(txtPat.getText());
-                alumno.setSegundo_apellido(txtMat.getText());
+                alumno.setPrimerAp(txtPat.getText());
+                alumno.setSegundoAp(txtMat.getText());
                 conexion.conectar();
                 if(conexion.existencia(txtBoleta.getText()))
                 {

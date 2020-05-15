@@ -33,7 +33,7 @@ public class Modal extends javax.swing.JDialog {
         setSize(600,300);
         if(flag == 2)
         {
-            lblTexto.setText("<html><body>¿Deseas eliminar al alumno<br>Boleta: "+a.getMatricula()+"<br>Nombre: "+a.getNombre()+" "+a.getPrimer_apellido()+" "+a.getSegundo_apellido()+"?  </body></html>");
+            lblTexto.setText("<html><body>¿Deseas eliminar al alumno<br>Boleta: "+a.getMatricula()+"<br>Nombre: "+a.getNombre()+" "+a.getPrimerAp()+" "+a.getSegundoAp() +"?  </body></html>");
             alumno = a;
         }
     }

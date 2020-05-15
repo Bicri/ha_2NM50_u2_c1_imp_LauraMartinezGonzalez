@@ -16,6 +16,13 @@ import javax.swing.JOptionPane;
 
 public class Conexiones {
     
+        
+        private int port = 3306;
+        private String user = "root";
+        private String password = "root01";
+        private String host = "localhost";
+        private String database = "gestionalumnos";
+        
         private Connection con;
         private PreparedStatement st = null;
         private ResultSet result = null;
@@ -37,13 +44,13 @@ public class Conexiones {
             listaAlumno.clear();
         }
         
+        private String url = String.format("jdbc:mysql://%s:%d/%s?useSSL=false", host, 3306, database);
         public  void conectar() 
         {
             try{
-                Class.forName("com.mysql.jdbc.Driver");
-                con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/gestionalumnos", "root", "root01");
+                con = (Connection) DriverManager.getConnection(url, user, password);
                 
-            }catch(ClassNotFoundException | SQLException e)
+            }catch(SQLException e)
             {
                 System.out.println("Error al conectar \n"+e);
             }
@@ -105,8 +112,8 @@ public class Conexiones {
                 st = con.prepareStatement("INSERT INTO alumnos (boleta,nombre,PrimerAp,SegundoAp) VALUES (?,?,?,?)");
                 st.setLong(1, alumno.getMatricula());
                 st.setString(2, alumno.getNombre());
-                st.setString(3, alumno.getPrimer_apellido());
-                st.setString(4, alumno.getSegundo_apellido());
+                st.setString(3, alumno.getPrimerAp());
+                st.setString(4, alumno.getSegundoAp());
                 respuesta = st.execute();
             }catch(SQLException e)
             {
@@ -135,7 +142,7 @@ public class Conexiones {
         {
             try
             {
-                st = con.prepareStatement("UPDATE alumnos SET boleta = '"+alumno.getMatricula()+"', nombre = '"+alumno.getNombre()+"', PrimerAp = '"+alumno.getPrimer_apellido()+"', SegundoAp = '"+alumno.getSegundo_apellido()+"' WHERE boleta='"+id+"'");
+                st = con.prepareStatement("UPDATE alumnos SET boleta = '"+alumno.getMatricula()+"', nombre = '"+alumno.getNombre()+"', PrimerAp = '"+alumno.getPrimerAp()+"', SegundoAp = '"+alumno.getSegundoAp()+"' WHERE boleta='"+id+"'");
                 st.executeUpdate();
                 respuesta = true;
             }catch(SQLException e)

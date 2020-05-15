@@ -496,8 +496,8 @@ public class PanelEditar extends javax.swing.JPanel {
                    {
                         alumno.setMatricula(Integer.parseInt(txtBoleta2.getText()));
                         alumno.setNombre(txtNombre.getText());
-                        alumno.setPrimer_apellido(txtPat.getText());
-                        alumno.setSegundo_apellido(txtMat.getText());
+                        alumno.setPrimerAp(txtPat.getText());
+                        alumno.setSegundoAp(txtMat.getText());
                         conexion.actualiza(alumno, txtBoleta.getText());
                         Window parentWindow = SwingUtilities.windowForComponent(this);
                         Frame parentframe = null;

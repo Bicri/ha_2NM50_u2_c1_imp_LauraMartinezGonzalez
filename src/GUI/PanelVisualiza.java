@@ -85,7 +85,7 @@ public class PanelVisualiza extends javax.swing.JPanel {
         for(Alumno aux : datos)//FOREACH
         {
             //CREA LAS FILAS
-            modelo.addRow(new Object[]{String.valueOf(aux.getMatricula()),aux.getNombre(), aux.getPrimer_apellido(), aux.getSegundo_apellido()});
+            modelo.addRow(new Object[]{String.valueOf(aux.getMatricula()),aux.getNombre(), aux.getPrimerAp(), aux.getSegundoAp()});
         }
        
         tabla.setModel(modelo); //AÑADE EL MODELO AL JTABLE CREADO
@@ -110,7 +110,7 @@ public class PanelVisualiza extends javax.swing.JPanel {
         for(Alumno aux : datos)//FOREACH
         {
             //CREA LAS FILAS
-            modelo.addRow(new Object[]{String.valueOf(aux.getMatricula()),aux.getNombre(), aux.getPrimer_apellido(), aux.getSegundo_apellido()});
+            modelo.addRow(new Object[]{String.valueOf(aux.getMatricula()),aux.getNombre(), aux.getPrimerAp(), aux.getSegundoAp()});
         }
        
         tabla.setModel(modelo); //AÑADE EL MODELO AL JTABLE CREADO
@@ -297,8 +297,8 @@ public class PanelVisualiza extends javax.swing.JPanel {
           idS = String.valueOf(tabla.getValueAt(id, 0));
           alumno.setMatricula(Integer.parseInt((String) tabla.getValueAt(id, 0)));
           alumno.setNombre(String.valueOf(tabla.getValueAt(id, 1)));
-          alumno.setPrimer_apellido(String.valueOf(tabla.getValueAt(id, 2)));
-          alumno.setSegundo_apellido(String.valueOf(tabla.getValueAt(id, 3)));
+          alumno.setPrimerAp(String.valueOf(tabla.getValueAt(id, 2)));
+          alumno.setSegundoAp(String.valueOf(tabla.getValueAt(id, 3)));
     }//GEN-LAST:event_tablaMouseClicked
 
     private void txtSearchKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyTyped
