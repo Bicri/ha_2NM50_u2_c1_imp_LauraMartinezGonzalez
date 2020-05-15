@@ -209,6 +209,11 @@ public class Principal extends javax.swing.JFrame implements ActionListener{
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        btnEdita();
+    }//GEN-LAST:event_btnEditarActionPerformed
+
+    public void btnEdita()
+    {
         //-------------- Animacion  --------------------------------------------
         flagEditar = 1;
         flagVisualizar = 0;
@@ -222,9 +227,7 @@ public class Principal extends javax.swing.JFrame implements ActionListener{
         
         Contenedor.add(editar);
         Contenedor.validate();
-    }//GEN-LAST:event_btnEditarActionPerformed
-
-
+    }
     /**
      * @param args the command line arguments
      */

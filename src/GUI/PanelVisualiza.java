@@ -31,7 +31,8 @@ import sun.swing.table.DefaultTableCellHeaderRenderer;
 
 public class PanelVisualiza extends javax.swing.JPanel {
 
-    
+    PanelEditar edit = new PanelEditar();
+    Principal primero = new Principal();
     
     Alumno alumno = new Alumno();
     List <Alumno> datos = new ArrayList<>();
@@ -292,13 +293,20 @@ public class PanelVisualiza extends javax.swing.JPanel {
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void tablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaMouseClicked
-          id = tabla.rowAtPoint(evt.getPoint());
           
+          id = tabla.rowAtPoint(evt.getPoint());
           idS = String.valueOf(tabla.getValueAt(id, 0));
           alumno.setMatricula(Integer.parseInt((String) tabla.getValueAt(id, 0)));
           alumno.setNombre(String.valueOf(tabla.getValueAt(id, 1)));
           alumno.setPrimerAp(String.valueOf(tabla.getValueAt(id, 2)));
           alumno.setSegundoAp(String.valueOf(tabla.getValueAt(id, 3)));
+          if(evt.getClickCount()==2 && !evt.isConsumed())
+          {
+              evt.consume();
+              edit.recibeAlumno(alumno);
+              primero.btnEdita();
+              
+          }
     }//GEN-LAST:event_tablaMouseClicked
 
     private void txtSearchKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyTyped
