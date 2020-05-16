@@ -32,7 +32,7 @@ import sun.swing.table.DefaultTableCellHeaderRenderer;
 public class PanelVisualiza extends javax.swing.JPanel {
 
     PanelEditar edit = new PanelEditar();
-    Principal primero = new Principal();
+    
     
     Alumno alumno = new Alumno();
     List <Alumno> datos = new ArrayList<>();
@@ -304,8 +304,6 @@ public class PanelVisualiza extends javax.swing.JPanel {
           {
               evt.consume();
               edit.recibeAlumno(alumno);
-              primero.btnEdita();
-              
           }
     }//GEN-LAST:event_tablaMouseClicked
 

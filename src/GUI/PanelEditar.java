@@ -562,6 +562,7 @@ public class PanelEditar extends javax.swing.JPanel {
     public void recibeAlumno(Alumno recibe)
     {
         System.out.println(recibe);
+        
     }
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
         limpia();

@@ -8,16 +8,18 @@ package GUI;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.HierarchyEvent;
 
 /**
  *
  * @author miriam
  */
-public class Principal extends javax.swing.JFrame implements ActionListener{
+public class Principal extends javax.swing.JFrame implements ActionListener  {
 
     /**
      * Creates new form Principal
      */
+   
     private PanelVisualiza visualiza = new PanelVisualiza();
     private PanelAgregar agregar = new PanelAgregar();
     private PanelEditar editar = new PanelEditar();
@@ -53,6 +55,11 @@ public class Principal extends javax.swing.JFrame implements ActionListener{
         setResizable(false);
 
         Contenedor.setBackground(new java.awt.Color(255, 255, 255));
+        Contenedor.addContainerListener(new java.awt.event.ContainerAdapter() {
+            public void componentRemoved(java.awt.event.ContainerEvent evt) {
+                ContenedorComponentRemoved(evt);
+            }
+        });
         Contenedor.setLayout(new java.awt.BorderLayout());
 
         Opciones.setBackground(new java.awt.Color(1, 112, 250));
@@ -212,6 +219,13 @@ public class Principal extends javax.swing.JFrame implements ActionListener{
         btnEdita();
     }//GEN-LAST:event_btnEditarActionPerformed
 
+    
+    private void ContenedorComponentRemoved(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_ContenedorComponentRemoved
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_ContenedorComponentRemoved
+
+    
     public void btnEdita()
     {
         //-------------- Animacion  --------------------------------------------
@@ -227,11 +241,17 @@ public class Principal extends javax.swing.JFrame implements ActionListener{
         
         Contenedor.add(editar);
         Contenedor.validate();
+        
+        
     }
+       
+    
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
+       
+        
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -275,4 +295,5 @@ public class Principal extends javax.swing.JFrame implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         Object evt = e.getSource();
     }
+    
 }
