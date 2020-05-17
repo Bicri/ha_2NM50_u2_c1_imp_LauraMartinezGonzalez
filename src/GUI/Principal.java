@@ -6,15 +6,19 @@
 package GUI;
 
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Panel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.awt.event.HierarchyEvent;
 
 /**
  *
  * @author miriam
  */
-public class Principal extends javax.swing.JFrame implements ActionListener  {
+public  class Principal extends javax.swing.JFrame implements ActionListener  {
 
     /**
      * Creates new form Principal
@@ -26,15 +30,24 @@ public class Principal extends javax.swing.JFrame implements ActionListener  {
     
     private int flagAgregar = 0, flagVisualizar = 1, flagEditar = 0; 
     
+   
+    
     public Principal() {
+        
         initComponents();
         setSize(1100,600);
         setLocationRelativeTo(null);
         
+        
+         
+         
         btnVisualizar.setBackground(new Color (0,160,255));
         Contenedor.add(visualiza);
+        
+        
     }
 
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -56,8 +69,37 @@ public class Principal extends javax.swing.JFrame implements ActionListener  {
 
         Contenedor.setBackground(new java.awt.Color(255, 255, 255));
         Contenedor.addContainerListener(new java.awt.event.ContainerAdapter() {
+            public void componentAdded(java.awt.event.ContainerEvent evt) {
+                ContenedorComponentAdded(evt);
+            }
             public void componentRemoved(java.awt.event.ContainerEvent evt) {
                 ContenedorComponentRemoved(evt);
+            }
+        });
+        Contenedor.addHierarchyListener(new java.awt.event.HierarchyListener() {
+            public void hierarchyChanged(java.awt.event.HierarchyEvent evt) {
+                ContenedorHierarchyChanged(evt);
+            }
+        });
+        Contenedor.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                ContenedorAncestorAdded(evt);
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+                ContenedorAncestorRemoved(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
+        Contenedor.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentHidden(java.awt.event.ComponentEvent evt) {
+                ContenedorComponentHidden(evt);
+            }
+            public void componentMoved(java.awt.event.ComponentEvent evt) {
+                ContenedorComponentMoved(evt);
+            }
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                ContenedorComponentShown(evt);
             }
         });
         Contenedor.setLayout(new java.awt.BorderLayout());
@@ -222,12 +264,58 @@ public class Principal extends javax.swing.JFrame implements ActionListener  {
     
     private void ContenedorComponentRemoved(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_ContenedorComponentRemoved
         // TODO add your handling code here:
-        
+       /*System.out.println(evt.getComponent().getClass().getName() + " --- ");
+        if(visualiza.isVisible())
+        {
+            System.out.println("muestra");
+        }
+        else
+        {
+            System.out.println("oculto");
+        }*/
     }//GEN-LAST:event_ContenedorComponentRemoved
 
+    private void ContenedorComponentHidden(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_ContenedorComponentHidden
+        // TODO add your handling code here:
+        
+        
+    }//GEN-LAST:event_ContenedorComponentHidden
     
+    private void ContenedorHierarchyChanged(java.awt.event.HierarchyEvent evt) {//GEN-FIRST:event_ContenedorHierarchyChanged
+        // TODO add your handling code here:
+         
+        
+    }//GEN-LAST:event_ContenedorHierarchyChanged
+
+    private void ContenedorAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_ContenedorAncestorAdded
+        // TODO add your handling code here:
+        
+        
+    }//GEN-LAST:event_ContenedorAncestorAdded
+
+    private void ContenedorAncestorRemoved(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_ContenedorAncestorRemoved
+        // TODO add your handling code here:
+       
+    }//GEN-LAST:event_ContenedorAncestorRemoved
+
+    private void ContenedorComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_ContenedorComponentAdded
+        // TODO add your handling code here:
+       
+    }//GEN-LAST:event_ContenedorComponentAdded
+
+    private void ContenedorComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_ContenedorComponentShown
+        // TODO add your handling code here:
+         
+    }//GEN-LAST:event_ContenedorComponentShown
+
+    private void ContenedorComponentMoved(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_ContenedorComponentMoved
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ContenedorComponentMoved
+
+ 
     public void btnEdita()
     {
+        
         //-------------- Animacion  --------------------------------------------
         flagEditar = 1;
         flagVisualizar = 0;
@@ -242,9 +330,10 @@ public class Principal extends javax.swing.JFrame implements ActionListener  {
         Contenedor.add(editar);
         Contenedor.validate();
         
-        
+       
     }
        
+    
     
     /**
      * @param args the command line arguments

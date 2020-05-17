@@ -14,8 +14,11 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Frame;
 import java.awt.Window;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ContainerEvent;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
@@ -145,6 +148,20 @@ public class PanelVisualiza extends javax.swing.JPanel {
         setMaximumSize(new java.awt.Dimension(780, 600));
         setMinimumSize(new java.awt.Dimension(780, 600));
         setPreferredSize(new java.awt.Dimension(780, 600));
+        addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+                formAncestorRemoved(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentHidden(java.awt.event.ComponentEvent evt) {
+                formComponentHidden(evt);
+            }
+        });
 
         btnEliminar.setBackground(new java.awt.Color(1, 112, 250));
         btnEliminar.setFont(new java.awt.Font("Serif", 1, 36)); // NOI18N
@@ -303,10 +320,13 @@ public class PanelVisualiza extends javax.swing.JPanel {
           if(evt.getClickCount()==2 && !evt.isConsumed())
           {
               evt.consume();
-              edit.recibeAlumno(alumno);
+              System.out.println(alumno);
+              var = 1;
+              this.setVisible(false);
           }
     }//GEN-LAST:event_tablaMouseClicked
-
+int var = 0;
+    
     private void txtSearchKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyTyped
         listallenaDinamica();
     }//GEN-LAST:event_txtSearchKeyTyped
@@ -314,6 +334,20 @@ public class PanelVisualiza extends javax.swing.JPanel {
     private void txtSearchKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyPressed
 
     }//GEN-LAST:event_txtSearchKeyPressed
+
+    private void formAncestorRemoved(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_formAncestorRemoved
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formAncestorRemoved
+
+    private void formComponentHidden(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentHidden
+        // TODO add your handling code here:
+        if(var == 1)
+        {
+            hilos h = new hilos(evt);
+        }
+        
+        
+    }//GEN-LAST:event_formComponentHidden
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
