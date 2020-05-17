@@ -17,9 +17,7 @@ import javax.swing.JLabel;
  */
 public class Modal2 extends javax.swing.JDialog {
 
-    /**
-     * Creates new form Modal
-     */
+   
     
     public Modal2(java.awt.Frame parent, boolean modal, int flag) {
         super(parent, modal);
@@ -57,6 +55,11 @@ public class Modal2 extends javax.swing.JDialog {
         {
             lblTexto.setText("Edicion Exitosa");
             lblaux.setVisible(false);
+        }
+        if(flag == 7)
+        {
+            lblTexto.setText("Registro exitoso");
+            lblaux.setText("Se añadió correctamente el profesor");
         }
     }
 
@@ -154,9 +157,10 @@ public class Modal2 extends javax.swing.JDialog {
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
         // TODO add your handling code here:
+        
         dispose();
     }//GEN-LAST:event_btnAceptarActionPerformed
-
+   
     private void btnAceptarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAceptarMouseEntered
         // TODO add your handling code here:
         btnAceptar.setBackground(new Color(0,160,255));

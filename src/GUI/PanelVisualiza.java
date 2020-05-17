@@ -321,11 +321,9 @@ public class PanelVisualiza extends javax.swing.JPanel {
           {
               evt.consume();
               System.out.println(alumno);
-              var = 1;
-              this.setVisible(false);
           }
     }//GEN-LAST:event_tablaMouseClicked
-int var = 0;
+
     
     private void txtSearchKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyTyped
         listallenaDinamica();
@@ -340,13 +338,7 @@ int var = 0;
     }//GEN-LAST:event_formAncestorRemoved
 
     private void formComponentHidden(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentHidden
-        // TODO add your handling code here:
-        if(var == 1)
-        {
-            hilos h = new hilos(evt);
-        }
-        
-        
+        // TODO add your handling code here:  
     }//GEN-LAST:event_formComponentHidden
 
 

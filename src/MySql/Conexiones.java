@@ -3,6 +3,7 @@ package MySql;
 
 import GUI.PanelAgregar;
 import Objetos.Alumno;
+import Objetos.Maestro;
 import com.mysql.jdbc.Connection;
 import java.awt.Panel;
 import java.util.List;
@@ -110,7 +111,7 @@ public class Conexiones {
             try
             {
                 st = con.prepareStatement("INSERT INTO alumnos (boleta,nombre,PrimerAp,SegundoAp) VALUES (?,?,?,?)");
-                st.setLong(1, alumno.getMatricula());
+                st.setInt(1, alumno.getMatricula());
                 st.setString(2, alumno.getNombre());
                 st.setString(3, alumno.getPrimerAp());
                 st.setString(4, alumno.getSegundoAp());
@@ -122,6 +123,24 @@ public class Conexiones {
                 JOptionPane.showMessageDialog(null, "PROBABLE ERROR DE LONGITUD EN BOLETA\n"+e);
             }
             
+            return respuesta;
+        }
+        
+        public boolean insertaProfe(Maestro m)
+        {
+            try
+            {
+                st = con.prepareStatement("INSERT INTO profesor (Numero_economico, nombre, primerAp, segundoAp, contraseña) VALUES (?,?,?,?,?)");
+                st.setInt(1, m.getUsuario());
+                st.setString(2, m.getNombre());
+                st.setString(3, m.getPrimerAp());
+                st.setString(4, m.getSegundoAp());
+                st.setString(5, m.getContraseña());
+                respuesta = st.execute();
+            }catch(SQLException e)
+            {
+                System.out.println("Error: "+e);
+            }
             return respuesta;
         }
         
