@@ -27,7 +27,7 @@ public  class Principal extends javax.swing.JFrame implements ActionListener  {
     private PanelVisualiza visualiza = new PanelVisualiza();
     private PanelAgregar agregar = new PanelAgregar();
     private PanelEditar editar = new PanelEditar();
-    InicioSesion inicio = new InicioSesion();
+   
     private int flagAgregar = 0, flagVisualizar = 1, flagEditar = 0; 
     
    
@@ -347,8 +347,9 @@ public  class Principal extends javax.swing.JFrame implements ActionListener  {
 
     private void btncerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncerrarActionPerformed
         // TODO add your handling code here:
-        inicio.setVisible(true);
-        dispose();
+         InicioSesion back = new InicioSesion();
+        back.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btncerrarActionPerformed
 
  
