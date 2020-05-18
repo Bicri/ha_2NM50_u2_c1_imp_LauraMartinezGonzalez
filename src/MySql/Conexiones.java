@@ -31,7 +31,7 @@ public class Conexiones {
         private List <Alumno> listaAlumno = new ArrayList<>();
         private int boleta;  
         private String nombre, pat, mat;
-
+        private Maestro profe = new Maestro();
         private boolean respuesta;
         
         
@@ -186,6 +186,65 @@ public class Conexiones {
             }
             
             return respuesta;
+        }
+        
+        public boolean inicio(int user, String pass)
+        {
+            conectar();
+            respuesta = false;
+            try
+            {
+                st = con.prepareStatement("select * from profesor where Numero_economico = '"+user+"'");
+                result = st.executeQuery();
+                respuesta =  result.next();
+                if(respuesta != false)
+                {
+                    st = con.prepareStatement("select * from profesor where contraseña = '"+pass+"'");
+                    result = st.executeQuery();
+                    respuesta =  result.next();
+                }
+            }catch(SQLException e)
+            {
+                System.out.println("Error de existencia "+e);
+            }
+            desconectar();
+            return respuesta;
+        }
+        
+        public boolean existeProfe()
+        {
+            respuesta = false;
+            try
+            {
+                st = con.prepareStatement("select * from profesor");
+                result = st.executeQuery();
+                respuesta =  result.next();
+            }catch(SQLException e)
+            {
+                System.out.println("Error de existencia "+e);
+            }
+            return respuesta;
+        }
+        
+        public Maestro getProfe()
+        {
+            try{
+                st = con.prepareStatement("select * from profesor");
+                result = st.executeQuery();
+                while(result.next())
+                {
+                    profe.setUsuario(result.getInt(1)) ;
+                    profe.setNombre(result.getString(2)); 
+                    profe.setPrimerAp(result.getString(3));
+                    profe.setSegundoAp(result.getString(4));
+                    profe.setContraseña(result.getString(5));
+                }
+                
+            }catch(SQLException e)
+            {
+                System.out.println("Error al mostrar" + e);
+            }
+            return profe;
         }
 }
 

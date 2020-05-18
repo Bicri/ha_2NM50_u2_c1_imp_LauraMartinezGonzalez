@@ -27,7 +27,7 @@ public  class Principal extends javax.swing.JFrame implements ActionListener  {
     private PanelVisualiza visualiza = new PanelVisualiza();
     private PanelAgregar agregar = new PanelAgregar();
     private PanelEditar editar = new PanelEditar();
-    
+    InicioSesion inicio = new InicioSesion();
     private int flagAgregar = 0, flagVisualizar = 1, flagEditar = 0; 
     
    
@@ -62,6 +62,7 @@ public  class Principal extends javax.swing.JFrame implements ActionListener  {
         btnVisualizar = new javax.swing.JButton();
         btnAgregar = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
+        btncerrar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Gestón de Alumnos");
@@ -82,13 +83,13 @@ public  class Principal extends javax.swing.JFrame implements ActionListener  {
             }
         });
         Contenedor.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
                 ContenedorAncestorAdded(evt);
             }
             public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
                 ContenedorAncestorRemoved(evt);
-            }
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
             }
         });
         Contenedor.addComponentListener(new java.awt.event.ComponentAdapter() {
@@ -171,6 +172,28 @@ public  class Principal extends javax.swing.JFrame implements ActionListener  {
             }
         });
         Opciones.add(btnEditar);
+
+        btncerrar.setBackground(new java.awt.Color(1, 112, 250));
+        btncerrar.setFont(new java.awt.Font("Serif", 1, 40)); // NOI18N
+        btncerrar.setForeground(new java.awt.Color(255, 255, 255));
+        btncerrar.setText("Cerrar Sesión");
+        btncerrar.setMaximumSize(new java.awt.Dimension(350, 150));
+        btncerrar.setMinimumSize(new java.awt.Dimension(350, 23));
+        btncerrar.setPreferredSize(new java.awt.Dimension(350, 23));
+        btncerrar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btncerrarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btncerrarMouseExited(evt);
+            }
+        });
+        btncerrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btncerrarActionPerformed(evt);
+            }
+        });
+        Opciones.add(btncerrar);
 
         Contenedor.add(Opciones, java.awt.BorderLayout.LINE_START);
 
@@ -312,6 +335,22 @@ public  class Principal extends javax.swing.JFrame implements ActionListener  {
         // TODO add your handling code here:
     }//GEN-LAST:event_ContenedorComponentMoved
 
+    private void btncerrarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btncerrarMouseEntered
+        // TODO add your handling code here:
+        btncerrar.setBackground(new Color(0,160,255));
+    }//GEN-LAST:event_btncerrarMouseEntered
+
+    private void btncerrarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btncerrarMouseExited
+        // TODO add your handling code here:
+        btncerrar.setBackground(new Color(1,112,250));
+    }//GEN-LAST:event_btncerrarMouseExited
+
+    private void btncerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncerrarActionPerformed
+        // TODO add your handling code here:
+        inicio.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btncerrarActionPerformed
+
  
     public void btnEdita()
     {
@@ -378,6 +417,7 @@ public  class Principal extends javax.swing.JFrame implements ActionListener  {
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnVisualizar;
+    private javax.swing.JButton btncerrar;
     // End of variables declaration//GEN-END:variables
 
     @Override

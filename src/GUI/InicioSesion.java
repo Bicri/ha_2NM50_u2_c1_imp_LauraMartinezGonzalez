@@ -7,6 +7,8 @@ package GUI;
 
 import GUI.Modales.Modal;
 import GUI.Modales.Recupera;
+import MySql.Conexiones;
+import com.sun.glass.events.KeyEvent;
 import java.awt.Color;
 import java.awt.Frame;
 import java.awt.Window;
@@ -21,10 +23,27 @@ public class InicioSesion extends javax.swing.JFrame {
     /**
      * Creates new form InicioSesion
      */
+    Conexiones conexion = new Conexiones();
+    boolean sinprofe = true;
+    Principal p = new Principal();
+    char validar;
     public InicioSesion() {
         initComponents();
         setSize(800,600);
         setLocationRelativeTo(null);
+        lblError.setVisible(false);
+        conexion.conectar();
+        if(!conexion.existeProfe())
+        {
+            lblCrearCuenta.setVisible(true);
+            sinprofe = true;
+        }
+        else
+        {
+            lblCrearCuenta.setVisible(false);
+            sinprofe = false;
+        }
+        conexion.desconectar();
     }
 
     /**
@@ -40,11 +59,12 @@ public class InicioSesion extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        rSPassFieldShade1 = new rscomponentshade.RSPassFieldShade();
-        rSTextFieldShade1 = new rscomponentshade.RSTextFieldShade();
+        txtpass = new rscomponentshade.RSPassFieldShade();
+        txtuser = new rscomponentshade.RSTextFieldShade();
         jButton1 = new javax.swing.JButton();
         lblForgotPasswd = new javax.swing.JLabel();
         lblCrearCuenta = new javax.swing.JLabel();
+        lblError = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(800, 600));
@@ -63,16 +83,26 @@ public class InicioSesion extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Contraseña");
 
-        rSPassFieldShade1.setFont(new java.awt.Font("Serif", 0, 24)); // NOI18N
-        rSPassFieldShade1.setPlaceholder("CURP");
-        rSPassFieldShade1.addActionListener(new java.awt.event.ActionListener() {
+        txtpass.setFont(new java.awt.Font("Serif", 0, 24)); // NOI18N
+        txtpass.setPlaceholder("CURP");
+        txtpass.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rSPassFieldShade1ActionPerformed(evt);
+                txtpassActionPerformed(evt);
+            }
+        });
+        txtpass.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtpassKeyTyped(evt);
             }
         });
 
-        rSTextFieldShade1.setFont(new java.awt.Font("Serif", 0, 24)); // NOI18N
-        rSTextFieldShade1.setPlaceholder("No. económico");
+        txtuser.setFont(new java.awt.Font("Serif", 0, 24)); // NOI18N
+        txtuser.setPlaceholder("No. económico");
+        txtuser.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtuserKeyTyped(evt);
+            }
+        });
 
         jButton1.setBackground(new java.awt.Color(255, 255, 255));
         jButton1.setFont(new java.awt.Font("Serif", 1, 24)); // NOI18N
@@ -111,6 +141,10 @@ public class InicioSesion extends javax.swing.JFrame {
             }
         });
 
+        lblError.setFont(new java.awt.Font("Serif", 1, 36)); // NOI18N
+        lblError.setForeground(new java.awt.Color(255, 255, 255));
+        lblError.setText("jLabel4");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -118,26 +152,28 @@ public class InicioSesion extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(95, 95, 95)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(137, 137, 137)
-                        .addComponent(jLabel1))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblCrearCuenta)
-                            .addComponent(lblForgotPasswd))
-                        .addGap(361, 361, 361))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jButton1)
+                    .addComponent(lblError)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGap(137, 137, 137)
+                            .addComponent(jLabel1))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addGap(23, 23, 23)
-                                    .addComponent(jLabel2))
-                                .addComponent(jLabel3))
-                            .addGap(61, 61, 61)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(rSTextFieldShade1, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
-                                .addComponent(rSPassFieldShade1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                                .addComponent(lblCrearCuenta)
+                                .addComponent(lblForgotPasswd))
+                            .addGap(361, 361, 361))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButton1)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(23, 23, 23)
+                                        .addComponent(jLabel2))
+                                    .addComponent(jLabel3))
+                                .addGap(61, 61, 61)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtuser, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+                                    .addComponent(txtpass, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
                 .addGap(158, 158, 158))
         );
         jPanel1Layout.setVerticalGroup(
@@ -148,10 +184,10 @@ public class InicioSesion extends javax.swing.JFrame {
                 .addGap(45, 45, 45)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
-                    .addComponent(rSTextFieldShade1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtuser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(rSPassFieldShade1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtpass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -159,7 +195,9 @@ public class InicioSesion extends javax.swing.JFrame {
                 .addComponent(lblForgotPasswd)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblCrearCuenta)
-                .addContainerGap(136, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                .addComponent(lblError)
+                .addGap(42, 42, 42))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -176,9 +214,9 @@ public class InicioSesion extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void rSPassFieldShade1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSPassFieldShade1ActionPerformed
+    private void txtpassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtpassActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_rSPassFieldShade1ActionPerformed
+    }//GEN-LAST:event_txtpassActionPerformed
 
     private void lblForgotPasswdMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblForgotPasswdMouseEntered
         // TODO add your handling code here:
@@ -202,27 +240,98 @@ public class InicioSesion extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        if(sinprofe)
+        {
+            lblError.setVisible(true);
+            lblError.setText("");
+            lblError.setText("Error: aún no existe un profesor registrado");
+        }
+        else
+        {
+            //si existe profesor
+            if(txtuser.getText().isEmpty() || txtpass.getText().isEmpty())
+            {
+                lblError.setVisible(true);
+                lblError.setText("");
+                lblError.setText("Error: campo(s) vacíos");
+            }
+            else
+            {
+                if(conexion.inicio(Integer.parseInt(txtuser.getText()), txtpass.getText()))
+                {
+                    p.setVisible(true);
+                    dispose();
+                }
+                else
+                {
+                    lblError.setVisible(true);
+                    lblError.setText("");
+                    lblError.setText("Error: usuario y/o contraseña incorrectos");
+                }
+            }
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    
     private void lblForgotPasswdMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblForgotPasswdMouseClicked
         // TODO add your handling code here:
-        lblForgotPasswd.setForeground(Color.BLACK);
-        Window parentWindow = SwingUtilities.windowForComponent(this);
-           Frame parentframe = null;
-           if(parentWindow instanceof Frame)
-           {
-               parentframe = (Frame)parentWindow;
-           }
-           Recupera r = new Recupera(parentframe,true);
-           r.setVisible(true);
+        if(sinprofe)
+        {
+            lblError.setVisible(true);
+            lblError.setText("");
+            lblError.setText("Error: aún no existe un profesor registrado");
+        }
+        else
+        {
+            lblError.setVisible(false);
+            lblForgotPasswd.setForeground(Color.BLACK);
+            Window parentWindow = SwingUtilities.windowForComponent(this);
+            Frame parentframe = null;
+            if(parentWindow instanceof Frame)
+            {
+                parentframe = (Frame)parentWindow;
+            }
+            Recupera r = new Recupera(parentframe,true);
+            r.setVisible(true);
+        }
+        
     }//GEN-LAST:event_lblForgotPasswdMouseClicked
 
     private void lblCrearCuentaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCrearCuentaMouseClicked
         // TODO add your handling code here:
+        lblError.setVisible(false);
         Registro registrar = new Registro();
         registrar.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_lblCrearCuentaMouseClicked
+    
+    String large;
+    private void txtuserKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtuserKeyTyped
+        // TODO add your handling code here:
+        validar = evt.getKeyChar();
+        if(Character.isLetter(validar) || validar == KeyEvent.VK_SPACE)
+        {
+            getToolkit().beep();
+            evt.consume();
+        }
+        else if(txtuser.getText().length() == 7)
+        {
+            getToolkit().beep();
+            evt.consume();
+        }
+       
+        
+    }//GEN-LAST:event_txtuserKeyTyped
+
+    private void txtpassKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtpassKeyTyped
+        // TODO add your handling code here:
+        validar = evt.getKeyChar();
+        if(txtpass.getText().length() == 22)
+        {
+            getToolkit().beep();
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtpassKeyTyped
 
     /**
      * @param args the command line arguments
@@ -266,8 +375,9 @@ public class InicioSesion extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblCrearCuenta;
+    private javax.swing.JLabel lblError;
     private javax.swing.JLabel lblForgotPasswd;
-    private rscomponentshade.RSPassFieldShade rSPassFieldShade1;
-    private rscomponentshade.RSTextFieldShade rSTextFieldShade1;
+    private rscomponentshade.RSPassFieldShade txtpass;
+    private rscomponentshade.RSTextFieldShade txtuser;
     // End of variables declaration//GEN-END:variables
 }

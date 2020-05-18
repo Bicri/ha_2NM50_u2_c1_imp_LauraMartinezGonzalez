@@ -5,6 +5,10 @@
  */
 package GUI.Modales;
 
+import MySql.Conexiones;
+import Objetos.Maestro;
+import java.awt.Color;
+
 /**
  *
  * @author isaac
@@ -14,10 +18,20 @@ public class Recupera extends javax.swing.JDialog {
     /**
      * Creates new form Recupera
      */
+    Conexiones con = new Conexiones();
+    Maestro maestro = new Maestro();
+    
     public Recupera(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
+        con.conectar();
+        maestro = con.getProfe();
+        con.desconectar();
+        
+        lblname.setText(maestro.getNombre()+" "+maestro.getPrimerAp()+" "+maestro.getSegundoAp());
+        lbluser.setText("Usuario: "+String.valueOf(maestro.getUsuario()));
+        lblPass.setText("Contraseña: "+maestro.getContraseña());
     }
 
     /**
@@ -29,21 +43,111 @@ public class Recupera extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        btnAceptar = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        lblname = new javax.swing.JLabel();
+        lbluser = new javax.swing.JLabel();
+        lblPass = new javax.swing.JLabel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+
+        btnAceptar.setBackground(new java.awt.Color(1, 112, 250));
+        btnAceptar.setFont(new java.awt.Font("Serif", 1, 30)); // NOI18N
+        btnAceptar.setForeground(new java.awt.Color(255, 255, 255));
+        btnAceptar.setText("Aceptar");
+        btnAceptar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnAceptarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnAceptarMouseExited(evt);
+            }
+        });
+        btnAceptar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAceptarActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("Serif", 1, 45)); // NOI18N
+        jLabel1.setText("Olvidé mi contraseña");
+
+        lblname.setFont(new java.awt.Font("Serif", 0, 30)); // NOI18N
+        lblname.setText("Nombre");
+
+        lbluser.setFont(new java.awt.Font("Serif", 0, 30)); // NOI18N
+        lbluser.setText("Usuario");
+
+        lblPass.setFont(new java.awt.Font("Serif", 0, 30)); // NOI18N
+        lblPass.setText("Contraseña");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(107, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(86, 86, 86))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(35, 35, 35)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbluser)
+                            .addComponent(lblname)
+                            .addComponent(lblPass)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(166, 166, 166)
+                        .addComponent(btnAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addComponent(lblname)
+                .addGap(18, 18, 18)
+                .addComponent(lbluser)
+                .addGap(18, 18, 18)
+                .addComponent(lblPass)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addComponent(btnAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 600, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnAceptarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAceptarMouseEntered
+        // TODO add your handling code here:
+        btnAceptar.setBackground(new Color(0,160,255));
+    }//GEN-LAST:event_btnAceptarMouseEntered
+
+    private void btnAceptarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAceptarMouseExited
+        // TODO add your handling code here:
+        btnAceptar.setBackground(new Color(1,112,250));
+    }//GEN-LAST:event_btnAceptarMouseExited
+
+    private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
+        // TODO add your handling code here:
+        dispose();
+    }//GEN-LAST:event_btnAceptarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -88,5 +192,11 @@ public class Recupera extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAceptar;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lblPass;
+    private javax.swing.JLabel lblname;
+    private javax.swing.JLabel lbluser;
     // End of variables declaration//GEN-END:variables
 }

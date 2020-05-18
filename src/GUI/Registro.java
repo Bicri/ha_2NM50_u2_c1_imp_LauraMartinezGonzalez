@@ -361,12 +361,7 @@ public class Registro extends javax.swing.JFrame {
     private void txtPassKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPassKeyTyped
         // TODO add your handling code here:
         validar = evt.getKeyChar();
-        if(Character.isDigit(validar))
-        {
-            getToolkit().beep();
-            evt.consume();
-        }
-        else if(txtPass.getText().length() == 22)
+        if(txtPass.getText().length() == 22)
         {
             getToolkit().beep();
             evt.consume();
