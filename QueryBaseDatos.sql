@@ -12,4 +12,11 @@ create table alumnos
     SegundoAp varchar(50)
 );
 
-select * from alumnos
+create table profesor
+(
+	Numero_economico int unique,
+	nombre varchar(50),
+	primerAp varchar(50),
+	segundoAp varchar(50),
+	contraseña varchar(22)
+);
