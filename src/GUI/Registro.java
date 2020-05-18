@@ -24,8 +24,10 @@ public class Registro extends javax.swing.JFrame {
     /**
      * Creates new form Registro
      */
-    Maestro maestro = new Maestro();
-    char validar;
+    private Maestro maestro = new Maestro();
+    private char validar;
+    private String mayus;
+    private int pos;
     public Registro() {
         initComponents();
         setSize(800,600);
@@ -117,6 +119,9 @@ public class Registro extends javax.swing.JFrame {
         txtPass.setFont(new java.awt.Font("Serif", 0, 24)); // NOI18N
         txtPass.setPlaceholder("CURP");
         txtPass.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtPassKeyReleased(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtPassKeyTyped(evt);
             }
@@ -412,6 +417,14 @@ public class Registro extends javax.swing.JFrame {
             evt.consume();
         }
     }//GEN-LAST:event_txtSegundoKeyTyped
+
+    private void txtPassKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPassKeyReleased
+        // TODO add your handling code here:
+        pos = txtPass.getCaretPosition();
+        mayus = txtPass.getText().toUpperCase();
+        txtPass.setText(mayus);
+        txtPass.setCaretPosition(pos);
+    }//GEN-LAST:event_txtPassKeyReleased
 
     public void clear()
     {
